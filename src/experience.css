@@ -1,0 +1,33 @@
+.experience-container {
+ 
+  background-color: white;
+  border: 1px solid #F3F2EF ;
+  border-radius: 10px;
+
+}
+.lighter-color{
+  color: #666666;
+}
+.lighter-color-activity{
+  color: #807f7f;
+  font-weight: 500;
+}
+.image {
+  height: 60px;
+  width: 60px;
+}
+.company{
+  font-size: 0.9rem;
+  height: 16px;
+  margin-top: 4px;
+ }
+ .date {
+  color: #807f7f;
+  font-size: 0.9rem;
+  height:16px;
+ }
+ .area {
+  color: #807f7f;
+  font-size: 0.9rem;
+  
+ }
