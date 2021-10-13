@@ -14,20 +14,15 @@ export default function FeedLeftBar() {
     fetchPerson();
   }, []);
   // Fetching function
-  const url = "https://striveschool-api.herokuapp.com/api/profile/me";
-  const token = process.env.REACT_APP_TOKENACCESS;
+  const url = process.env.REACT_APP_FETCH_BE_URL + "/profiles/6166fec751575eba24d693f5";
+  
   //   Fetch
   const fetchPerson = async () => {
     try {
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      const response = await fetch(url);
       if (response.ok) {
         let data = await response.json();
-        setMyProfile({ data });
+        setMyProfile({data});
       } else {
         console.log("Error");
       }
