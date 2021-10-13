@@ -88,23 +88,15 @@ const [selectedEndDate, setSelectedEndDate] = useState("2021-09-09")
   }
 
   //Recieving Data
-  const url = "https://striveschool-api.herokuapp.com/api/profile/" + userId + "/experiences/" + expId;
+  
   const fetchExp = async () => {
     try {
-      let response = await fetch(url, {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + token,
-          },
+      let response = await fetch(`${process.env.REACT_APP_BE_URL}/experience/` + expId, {
+          method: "GET"
         }
       );
       if (response.ok) {
         let data = await response.json();
-        // console.log("THIS IS EDIT-EXPERIENCE", data )
-        
-  
-        // let newData = await data[0]
-        // console.log("NEW DATA", newData)
         setEditingInfo(data)
         
       } else {
@@ -115,12 +107,11 @@ const [selectedEndDate, setSelectedEndDate] = useState("2021-09-09")
 
   const editData = async () => {
     try {
-      let response = await fetch(url, {
+      let response = await fetch(`${process.env.REACT_APP_BE_URL}/experience/` + expId, {
         method: "PUT",
         body: JSON.stringify(EditingInfo),
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          Authorization: "Bearer " + token,
+          "Content-type": "application/json; charset=UTF-8"
         },
       });
       if (response.ok) {
@@ -135,12 +126,11 @@ const [selectedEndDate, setSelectedEndDate] = useState("2021-09-09")
   };
   const deleteFunction = async (e) => {
     try {
-      let response = await fetch(url, {
+      let response = await fetch(`${process.env.REACT_APP_BE_URL}/experience/` + expId, {
         method: "DELETE",
         body: JSON.stringify(EditingInfo),
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          Authorization: "Bearer " + token,
+          "Content-type": "application/json; charset=UTF-8"
         },
       });
       if (response.ok) {
@@ -158,18 +148,13 @@ const [selectedEndDate, setSelectedEndDate] = useState("2021-09-09")
     
     let formData = new FormData();
     let file = EditingInfo.file;
-    formData.append("experience", file);
+    formData.append("experiencePic", file);
     try {
-      let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/6135e0aa7be6c10015f9db9c/experiences/" +expId+ "/picture",
+      let response = await fetch(`${process.env.REACT_APP_BE_URL}/experience/` + expId + "/picture",
         {
           method: "POST",
           body: formData,
-          // mode: "no-cors",
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTM1ZTBhYTdiZTZjMTAwMTVmOWRiOWMiLCJpYXQiOjE2MzA5MjA4NzQsImV4cCI6MTYzMjEzMDQ3NH0.q5C0SILXauX7HfPrCSoz6sHV9dLLY4aLIoO6gnpApKA",
-          },
+          // mode: "no-cors",      
         }
       );
       let data = await response.json();
@@ -195,9 +180,6 @@ const [selectedEndDate, setSelectedEndDate] = useState("2021-09-09")
       console.log(err);
     }
   };
-
-  
-
   // JSX !
   return (
     <>
