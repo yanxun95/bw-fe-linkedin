@@ -10,9 +10,11 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import OpenTo from "./mainContBtns/OpenTo";
 import AddSection from "./mainContBtns/AddSection";
 import More from "./mainContBtns/More";
+// *************** \\
+// import {fetchPerson} from "../utilities/fetches.js"
 
 const MainContainer = ({ match }) => {
-  const token = process.env.REACT_APP_TOKENACCESS;
+  // const token = process.env.REACT_APP_TOKENACCESS;
 
   const personId = "";
   const [PersonInfo, setPersonInfo] = useState([]);
@@ -27,28 +29,24 @@ const MainContainer = ({ match }) => {
     fetchPerson();
     fetchPersonExpir();
   }, []);
+
   useEffect(() => {
     fetchPerson();
     fetchPersonExpir();
   }, [match.params]);
-  //   !
-  //   FETCHING
+    // !
+    // FETCHING
   const fetchPerson = async () => {
     try {
       let response = await fetch(
         match.params.id
-          ? "https://striveschool-api.herokuapp.com/api/profile/" +
+          ? "https://bw3-be.herokuapp.com/profiles/" +
               match.params.id
-          : "https://striveschool-api.herokuapp.com/api/profile/me",
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
+          : "https://striveschool-api.herokuapp.com/api/profiles/me",
       );
       if (response.ok) {
         let data = await response.json();
+        console.log(data)
         setPersonInfo({ data });
       } else {
         console.log("Error");
@@ -60,21 +58,16 @@ const MainContainer = ({ match }) => {
   const fetchPersonExpir = async () => {
     try {
       let response = await fetch(
-        match.params.id
-          ? "https://striveschool-api.herokuapp.com/api/profile/" +
-              match.params.id +
-              "/experiences"
-          : "https://striveschool-api.herokuapp.com/api/profile/6135e0aa7be6c10015f9db9c/experiences",
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
+        // match.params.id
+        //   ? "https://bw3-be.herokuapp.com/experience"
+        //   : "https://striveschool-api.herokuapp.com/api/profile/6135e0aa7be6c10015f9db9c/experiences",
+        
+        "https://bw3-be.herokuapp.com/experience"
       );
       if (response.ok) {
         let data = await response.json();
-        setPersonExpr({ data });
+        // setPersonExpr({ data });
+        console.log(data)
       } else {
         console.log("Error");
       }

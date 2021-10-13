@@ -27,7 +27,7 @@ const Experience = ({match}) => {
     try {
       let response = await fetch(
         match.params.id
-       ?  "https://striveschool-api.herokuapp.com/api/profile/"+ match.params.id +"/experiences"
+       ? process.env.REACT_APP_FETCH_BE_URL + match.params.id +"/experience"
        :
         "https://striveschool-api.herokuapp.com/api/profile/6135e0aa7be6c10015f9db9c/experiences",
         {

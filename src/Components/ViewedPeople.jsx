@@ -2,9 +2,9 @@ import { Card } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 
 const ViewedPeople = ({ message, data }) => {
-  const num = [1, 2, 3, 4, 5];
-  const startingIndex = message === "Message" ? 0 : 6;
-  const endingIndex = message === "Message" ? 5 : 11;
+  // const num = [1, 2, 3, 4, 5];
+  const startingIndex = message === "Message" ? 0 : 2;
+  const endingIndex = message === "Message" ? 3 : 11;
  
   const listgenerate = () => {
     return (
