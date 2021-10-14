@@ -40,7 +40,7 @@ function Feed() {
       if (response.ok) {
         let data = await response.json();
         setPosts(data);
-        console.log(data);
+        console.log("DATA (Posts) FROM FEED", data);
       } else {
         console.log("Error");
       }
@@ -69,6 +69,10 @@ function Feed() {
     fetchPerson();
   }, []);
 
+  useEffect(() => {
+    fetchPosts();
+  }, [posts])
+
   return (
     <>
       <br />
@@ -90,6 +94,7 @@ function Feed() {
                     post.user && (
                       <SingleFeed
                         MyProfileID={MyProfile.data._id}
+                        MyProfile={MyProfile}
                         onDeletePostFunction={onDeletePost}
                         onUpdatePostFunction={onUpdatePost}
                         fetchPosts={fetchPosts}

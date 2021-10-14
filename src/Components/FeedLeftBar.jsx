@@ -23,7 +23,7 @@ export default function FeedLeftBar({ MyProfileID }) {
       if (response.ok) {
         let data = await response.json();
         setMyProfile(data);
-        console.log("*******MY PROFILE ID", MyProfileID);
+        // console.log("*******MY PROFILE ID", MyProfileID);
       } else {
         console.log("Error");
       }
@@ -56,7 +56,7 @@ export default function FeedLeftBar({ MyProfileID }) {
               className="text-muted m-0 text-center"
               style={{ fontSize: "0.8rem" }}
             >
-              {MyProfile.bio}p
+              {MyProfile.bio}
             </p>
           </div>
           <div className="py-2 growNetwork">

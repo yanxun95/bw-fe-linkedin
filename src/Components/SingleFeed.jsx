@@ -16,21 +16,18 @@ const SingleFeed = ({
   onDeletePostFunction,
   onUpdatePostFunction,
   fetchPosts,
+  fetchPerson,
   MyProfileID,
 }) => {
-  // const url = "https://striveschool-api.herokuapp.com/api/posts/";
-  // const token = process.env.REACT_APP_TOKENACCESS;
   const url = process.env.REACT_APP_FETCH_BE_URL;
-  // const profileId = MyProfile.data._id;
   const profileId = MyProfileID;
-  // console.log(MyProfile)
+
   const deletePost = async () => {
     try {
       const response = await fetch(url + "/posts/" + post._id, {
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json",
-          // Authorization: "Bearer " + token,
+          "Content-Type": "application/json"
         },
       });
       if (response.ok) {

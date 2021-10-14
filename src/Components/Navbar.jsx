@@ -41,7 +41,7 @@ const profileUrl = url + "/profiles/6166fec751575eba24d693f5";
       const response = await fetch(profileUrl)
       if (response.ok) {
         const myProfile = await response.json()
-        console.log(myProfile)
+        // console.log("Navbar My Profile", myProfile)
         setMeProfile(myProfile)
       } else {
         console.log("there was a4n error")

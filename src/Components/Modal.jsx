@@ -15,7 +15,9 @@ const ModalItem = ({
   postToUpdate,
   onUpdatePost,
   title,
-  fetchPosts
+  fetchPosts,
+  fetchPerson,
+  MyProfile
 }) => {
   const [show, setShow] = useState(false);
   const [text, setText] = useState(
@@ -23,7 +25,6 @@ const ModalItem = ({
   );
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // const token = process.env.REACT_APP_TOKENACCESS;
   const url = process.env.REACT_APP_FETCH_BE_URL;
 
   const addPost = async () => {
@@ -35,16 +36,12 @@ const ModalItem = ({
         method: "POST",
         body: JSON.stringify(post),
         headers: {
-          "Content-type": "application/json",
-          // Authorization: "Bearer " + token,
+          "Content-type": "application/json"
         },
       });
       if (response.ok) {
         const newPost = await response.json();
-
-        // if image upload image here
-        // the comment has been sent succesfully!!
-        console.log("Posts", newPost);
+        console.log("Posts from Modal", newPost);
         onNewPost(newPost);
       } else {
         console.log("error");
@@ -82,6 +79,9 @@ const ModalItem = ({
     }
   };
 
+  // useEffect(()=> {
+  //   fetchPerson()
+  // }, [])
   return (
     <>
       <button
