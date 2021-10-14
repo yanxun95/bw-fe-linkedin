@@ -14,8 +14,6 @@ export default function AddExperience({userId}) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
- 
-  const token = process.env.REACT_APP_TOKENACCESS;
 
 // Date
 
@@ -50,6 +48,7 @@ const [selectedEndDate, setSelectedEndDate] = useState("2021-09-09")
     endDate: null,
     description: "",
     area: "",
+    username:"James"
   
   });
   // Data set
@@ -71,18 +70,15 @@ const [selectedEndDate, setSelectedEndDate] = useState("2021-09-09")
    
   };
 
-  //   POSTING DATA
-  //   URL
-  const url = "https://striveschool-api.herokuapp.com/api/profile/"+ userId +"/experiences";
+
 
   const postData = async () => {
     try {
-      let response = await fetch(url, {
+      let response = await fetch(`${process.env.REACT_APP_BE_URL}/experience/`+ userId, {
         method: "POST",
         body: JSON.stringify(EditingInfo),
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          Authorization: "Bearer " + token,
+          "Content-type": "application/json; charset=UTF-8"
         },
       });
       if (response.ok) {

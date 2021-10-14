@@ -37,14 +37,14 @@ const MainContainer = ({ match }) => {
     try {
       let response = await fetch(
         match.params.id
-          ? "https://striveschool-api.herokuapp.com/api/profile/" +
+          ? "https://bw3-be.herokuapp.com/profiles/" +
               match.params.id
-          : "https://striveschool-api.herokuapp.com/api/profile/me",
+          : "https://bw3-be.herokuapp.com/profiles/61644708e498d1da1ca643e3",
         {
           method: "GET",
-          headers: {
-            Authorization: "Bearer " + token,
-          },
+          // headers: {
+          //   Authorization: "Bearer " + token,
+          // },
         }
       );
       if (response.ok) {

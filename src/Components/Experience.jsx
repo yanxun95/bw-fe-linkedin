@@ -8,42 +8,31 @@ import EditExperience from "./EditExperience";
 
 const Experience = ({match}) => {
   const [userExperience, setExperience] = useState([]);
-  const token = process.env.REACT_APP_TOKENACCESS;
   // const fetchedUserId = ""
   console.log("THIS IS MATCH.PARAMS",match.params.id)
   useEffect(() => {
     fetchExp();
-    // console.log("Mounted", userExperience )
-    // console.log("USER ID", userExperience[0].user)
-    // fetchedUserId = userExperience[0].user
-    // console.log("FETCHED USER ID",fetchedUserId)
   }, [match.params.id]);
 
-  // useEffect(() => {
-  //  fetchExp();
-  // }, [userExperience.length]);
 
   const fetchExp = async () => {
     try {
       let response = await fetch(
         match.params.id
-       ?  "https://striveschool-api.herokuapp.com/api/profile/"+ match.params.id +"/experiences"
+       ?  `${process.env.REACT_APP_BE_URL}/profiles` + match.params.id 
        :
-        "https://striveschool-api.herokuapp.com/api/profile/6135e0aa7be6c10015f9db9c/experiences",
+       `${process.env.REACT_APP_BE_URL}/profiles`+ "/61644708e498d1da1ca643e3",
         {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + token,
-          },
+          method: "GET"
         }
       );
       if (response.ok) {
         let data = await response.json();
-        console.log("THIS IS EXPERIENCE", data);
-
-        // let newData = await data[0]
-        // console.log("NEW DATA", newData)
-        setExperience(data);
+        // console.log("THIS IS DATA", data);
+    
+        let profileExperiences = data.experiences
+        // console.log("THIS IS PROFILE EXP", profileExperiences)
+         setExperience(profileExperiences);
       } else {
         console.log("Error");
       }
@@ -58,10 +47,10 @@ const Experience = ({match}) => {
             <h5 style={{fontWeight:"480"}}>Experience</h5>
 
             <div className="d-flex ml-auto">
-              <AddExperience userId={"6135e0aa7be6c10015f9db9c"}/>
+              <AddExperience userId={"61644708e498d1da1ca643e3"}/>
             </div>
           </div>
-          {userExperience.map((exp) => (
+           {userExperience.map((exp) => (
             <div className="mt-2">
               <Row>
                 <Col xs="1">
@@ -106,7 +95,7 @@ const Experience = ({match}) => {
                 </Col>
               </Row>
             </div>
-          ))}
+          ))} 
         </div>
       </div>
     </>
