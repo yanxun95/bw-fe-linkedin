@@ -42,7 +42,13 @@ const MainContainer = ({ match }) => {
         match.params.id
           ? "https://bw3-be.herokuapp.com/profiles/" +
               match.params.id
-          : "https://striveschool-api.herokuapp.com/api/profiles/me",
+          : "https://bw3-be.herokuapp.com/profiles/61644708e498d1da1ca643e3",
+        {
+          method: "GET",
+          // headers: {
+          //   Authorization: "Bearer " + token,
+          // },
+        }
       );
       if (response.ok) {
         let data = await response.json();
