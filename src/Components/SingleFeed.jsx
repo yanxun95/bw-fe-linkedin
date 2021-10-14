@@ -20,7 +20,7 @@ const SingleFeed = ({
 }) => {
   // const url = "https://striveschool-api.herokuapp.com/api/posts/";
   // const token = process.env.REACT_APP_TOKENACCESS;
-  const url = process.env.REACT_APP_FETCH_BE_URL
+  const url = process.env.REACT_APP_FETCH_BE_URL;
   // const profileId = MyProfile.data._id;
   const profileId = MyProfileID;
   // console.log(MyProfile)
@@ -86,7 +86,12 @@ const SingleFeed = ({
         {post.image && <Card.Img src={post.image} />}
         <Card.Body className="footer-icons d-flex">
           <div>
-            <AiOutlineLike size={20} /> <span>Like</span>
+            <AiOutlineLike size={20} />
+            {post.likes === 0 ? (
+              <span>Like</span>
+            ) : (
+              <span> {post.likes} Like</span>
+            )}
           </div>
           <div>
             <FaRegCommentDots size={20} />
