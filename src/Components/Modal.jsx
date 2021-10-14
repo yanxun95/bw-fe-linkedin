@@ -11,7 +11,8 @@ import ImageForPost from "./ImageForPost";
 import EditBgImg from "./EditBgImg";
 
 const ModalItem = ({
-  onNewPost,
+  // onNewPost,
+  onNewPostFunction,
   postToUpdate,
   onUpdatePost,
   title,
@@ -42,7 +43,7 @@ const ModalItem = ({
       if (response.ok) {
         const newPost = await response.json();
         console.log("Posts from Modal", newPost);
-        onNewPost(newPost);
+        onNewPostFunction(newPost);
       } else {
         console.log("error");
         alert("something went wrong");
@@ -63,8 +64,7 @@ const ModalItem = ({
         method: "PUT",
         body: JSON.stringify(post),
         headers: {
-          "Content-Type": "application/json",
-          // Authorization: "Bearer " + token,
+          "Content-Type": "application/json"
         },
       });
       if (response.ok) {

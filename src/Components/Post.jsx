@@ -17,7 +17,8 @@ const PostFeed = ({ onNewPostFunction }) => {
             />
           </div>
           <div className="post-btn w-100">
-            <ModalItem title="post" onNewPost={onNewPostFunction} />
+            {/* <ModalItem title="post" onNewPost={onNewPostFunction} /> */}
+            <ModalItem title="post" onNewPostFunction={onNewPostFunction} />
           </div>
         </div>
 
