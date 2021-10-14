@@ -10,10 +10,12 @@ function Feed() {
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState({});
   const [checkSort, markSort] = useState(false);
-  const [MyProfile, setMyProfile] = useState();
-  const token = process.env.REACT_APP_TOKENACCESS;
-  const url = "https://striveschool-api.herokuapp.com/api/posts/";
-  const profileUrl = "https://striveschool-api.herokuapp.com/api/profile/me";
+  const [MyProfile, setMyProfile] = useState(null);
+  // const token = process.env.REACT_APP_TOKENACCESS;
+  // const url = "https://striveschool-api.herokuapp.com/api/posts/";
+  // const profileUrl = "https://striveschool-api.herokuapp.com/api/profile/me";
+  const url = process.env.REACT_APP_FETCH_BE_URL;
+  const profileUrl = url + "/profiles/6166fec751575eba24d693f5";
 
   const onNewPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -31,18 +33,14 @@ function Feed() {
     setPosts([...posts]);
   };
 
+  // FETCH POSTS
   const fetchPosts = async () => {
     try {
-      let response = await fetch(url, {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      let response = await fetch(url + "/posts");
       if (response.ok) {
         let data = await response.json();
-
         setPosts(data);
+        console.log(data);
       } else {
         console.log("Error");
       }
@@ -51,14 +49,10 @@ function Feed() {
     }
   };
 
+  // FETCH PERSON (ME)
   const fetchPerson = async () => {
     try {
-      const response = await fetch(profileUrl, {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      const response = await fetch(profileUrl);
       if (response.ok) {
         let data = await response.json();
         setMyProfile({ data });
@@ -81,26 +75,29 @@ function Feed() {
       <Container>
         <Row>
           <Col md="3">
-            <FeedLeftBar />
+            {MyProfile !== null && (
+              <FeedLeftBar MyProfileID={MyProfile.data._id} />
+            )}
           </Col>
           <Col md="6">
             <PostFeed onNewPostFunction={onNewPost} />
-            {posts
-              .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-              .slice(0, 25)
-              .map(
-                (post) =>
-                  post.user && (
-                    <SingleFeed
-                      MyProfileID={MyProfile}
-                      onDeletePostFunction={onDeletePost}
-                      onUpdatePostFunction={onUpdatePost}
-                      fetchPosts={fetchPosts}
-                      post={post}
-                      key={post._id}
-                    />
-                  )
-              )}
+            {MyProfile !== null &&
+              posts
+                .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+                .slice(0, 25)
+                .map(
+                  (post) =>
+                    post.user && (
+                      <SingleFeed
+                        MyProfileID={MyProfile.data._id}
+                        onDeletePostFunction={onDeletePost}
+                        onUpdatePostFunction={onUpdatePost}
+                        fetchPosts={fetchPosts}
+                        post={post}
+                        key={post._id}
+                      />
+                    )
+                )}
           </Col>
           <Col md="3">
             <FeedRightBar />
