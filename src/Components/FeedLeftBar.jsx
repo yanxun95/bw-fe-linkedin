@@ -14,8 +14,7 @@ export default function FeedLeftBar({ MyProfileID }) {
     fetchPerson();
   }, []);
   // Fetching function
-  const url =
-    process.env.REACT_APP_FETCH_BE_URL + "/profiles/6166fec751575eba24d693f5";
+  const url = process.env.REACT_APP_FETCH_BE_URL + "/profiles/" + MyProfileID;
 
   //   Fetch
   const fetchPerson = async () => {
@@ -24,7 +23,7 @@ export default function FeedLeftBar({ MyProfileID }) {
       if (response.ok) {
         let data = await response.json();
         setMyProfile({ data });
-        console.log("this is the id", MyProfileID);
+        console.log("*******MY PROFILE ID", MyProfileID);
       } else {
         console.log("Error");
       }
@@ -45,15 +44,11 @@ export default function FeedLeftBar({ MyProfileID }) {
             to="/home/"
             className="d-flex flex-column align-items-center position-relative text-dark font-weight-bold"
           >
-            <img
-              src={MyProfile.data.image}
-              alt=""
-              className="feed-profile-image"
-            />
+            <img src={MyProfile.image} alt="" className="feed-profile-image" />
             <br />
             <br />
             <h5 className="m-0">
-              {MyProfile.data.name} {MyProfile.data.surname}
+              {MyProfile.name} {MyProfile.surname}
             </h5>
           </Link>
           <div className="text-muted px-3 pb-3 pt-2">
@@ -61,7 +56,7 @@ export default function FeedLeftBar({ MyProfileID }) {
               className="text-muted m-0 text-center"
               style={{ fontSize: "0.8rem" }}
             >
-              {MyProfile.data.bio}p
+              {MyProfile.bio}p
             </p>
           </div>
           <div className="py-2 growNetwork">
