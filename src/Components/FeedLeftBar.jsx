@@ -7,14 +7,14 @@ import { CgUserAdd } from "react-icons/cg";
 import { IoBookmarkSharp } from "react-icons/io5";
 import { AiOutlinePlus } from "react-icons/ai";
 
-export default function FeedLeftBar() {
+export default function FeedLeftBar({MyProfileID}) {
   const [MyProfile, setMyProfile] = useState();
   //   Refresh
   useEffect(() => {
     fetchPerson();
   }, []);
   // Fetching function
-  const url = process.env.REACT_APP_FETCH_BE_URL + "/profiles/6166fec751575eba24d693f5";
+  const url = process.env.REACT_APP_FETCH_BE_URL + "/profiles/" + MyProfileID;
   
   //   Fetch
   const fetchPerson = async () => {
@@ -23,6 +23,7 @@ export default function FeedLeftBar() {
       if (response.ok) {
         let data = await response.json();
         setMyProfile({data});
+        console.log("*******MY PROFILE ID", MyProfileID)
       } else {
         console.log("Error");
       }
@@ -44,14 +45,14 @@ export default function FeedLeftBar() {
             className="d-flex flex-column align-items-center position-relative text-dark font-weight-bold"
           >
             <img
-              src={MyProfile.data.image}
+              src={MyProfile.image}
               alt=""
               className="feed-profile-image"
             />
             <br />
             <br />
             <h5 className="m-0">
-              {MyProfile.data.name} {MyProfile.data.surname}
+              {MyProfile.name} {MyProfile.surname}
             </h5>
           </Link>
           <div className="text-muted px-3 pb-3 pt-2">
@@ -59,7 +60,7 @@ export default function FeedLeftBar() {
               className="text-muted m-0 text-center"
               style={{ fontSize: "0.8rem" }}
             >
-              {MyProfile.data.bio}p
+              {MyProfile.bio}p
             </p>
           </div>
           <div className="py-2 growNetwork">

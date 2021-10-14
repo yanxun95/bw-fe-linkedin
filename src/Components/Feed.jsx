@@ -55,7 +55,9 @@ function Feed() {
       const response = await fetch(profileUrl);
       if (response.ok) {
         let data = await response.json();
-        setMyProfile({data});
+        console.log("****** DATA", data)
+        setMyProfile(data);
+        console.log("*****MY PFROFILE", MyProfile)
       } else {
         console.log("Error");
       }
@@ -75,7 +77,7 @@ function Feed() {
       <Container>
         <Row>
           <Col md="3">
-            <FeedLeftBar />
+            <FeedLeftBar MyProfileID={MyProfile._id} />
           </Col>
           <Col md="6">
             <PostFeed onNewPostFunction={onNewPost} />

@@ -104,7 +104,7 @@ const ModalItem = ({
               />
             </div>
             <div className="w-100">
-              <div>Azizbek Tokhirjonov</div>
+              <div>Gustavo Lapernica</div>
               <Privacy />
             </div>
           </div>
