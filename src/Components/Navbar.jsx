@@ -29,22 +29,16 @@ import { RiPhoneFindLine, RiAdvertisementFill } from "react-icons/ri";
 import pro from "./download.png";
 import { Link, withRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
-const LinkedinNavbar = () => {
 
-const token = process.env.REACT_APP_TOKENACCESS;
+const LinkedinNavbar = () => {
 const [meProfile, setMeProfile] = useState(null)
+const url = process.env.REACT_APP_FETCH_BE_URL;
+const profileUrl = url + "/profiles/6166fec751575eba24d693f5";
 
   /* Function to fetch profile */
   const fetchProfile = async () => {
     try {
-      const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/me",
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      )
+      const response = await fetch(profileUrl)
       if (response.ok) {
         const myProfile = await response.json()
         console.log(myProfile)
