@@ -11,14 +11,13 @@ import ImageForPost from "./ImageForPost";
 import EditBgImg from "./EditBgImg";
 
 const ModalItem = ({
+  // *** COMMENT BY LIA: commented out onNewPost, I'm using onNewPostFunction instead. If it's not a problem for you, I would appreciate if you could leave onNewPostFunction 🦄
   // onNewPost,
   onNewPostFunction,
   postToUpdate,
   onUpdatePost,
   title,
-  fetchPosts,
-  fetchPerson,
-  MyProfile
+  fetchPosts
 }) => {
   const [show, setShow] = useState(false);
   const [text, setText] = useState(
@@ -38,6 +37,7 @@ const ModalItem = ({
         body: JSON.stringify(post),
         headers: {
           "Content-type": "application/json"
+          // *** COMMENT BY LIA: got rid of token, Authorization etc 🦄
         },
       });
       if (response.ok) {
@@ -78,7 +78,7 @@ const ModalItem = ({
       console.log(error);
     }
   };
-
+  // *** COMMENT BY LIA: I dopn't remember if i commented this one out, if you don't need it, we can delete it 🦄
   // useEffect(()=> {
   //   fetchPerson()
   // }, [])
