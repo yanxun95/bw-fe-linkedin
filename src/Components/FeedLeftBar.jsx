@@ -7,22 +7,24 @@ import { CgUserAdd } from "react-icons/cg";
 import { IoBookmarkSharp } from "react-icons/io5";
 import { AiOutlinePlus } from "react-icons/ai";
 
-export default function FeedLeftBar() {
+export default function FeedLeftBar({ MyProfileID }) {
   const [MyProfile, setMyProfile] = useState();
   //   Refresh
   useEffect(() => {
     fetchPerson();
   }, []);
   // Fetching function
-  const url = process.env.REACT_APP_FETCH_BE_URL + "/profiles/6166fec751575eba24d693f5";
-  
+  const url =
+    process.env.REACT_APP_FETCH_BE_URL + "/profiles/6166fec751575eba24d693f5";
+
   //   Fetch
   const fetchPerson = async () => {
     try {
       const response = await fetch(url);
       if (response.ok) {
         let data = await response.json();
-        setMyProfile({data});
+        setMyProfile({ data });
+        console.log("this is the id", MyProfileID);
       } else {
         console.log("Error");
       }
