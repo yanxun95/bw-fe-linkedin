@@ -42,6 +42,8 @@ const SingleFeed = ({
     }
   };
 
+  const likes = () => {};
+
   const result = formatDistance(new Date(), new Date(post.createdAt));
   const profileImg = post.user.image
     ? post.user.image
@@ -85,7 +87,7 @@ const SingleFeed = ({
         <Card.Text>{post.text}</Card.Text>
         {post.image && <Card.Img src={post.image} />}
         <Card.Body className="footer-icons d-flex">
-          <div>
+          <div onClick={() => likes()}>
             <AiOutlineLike size={20} />
             {post.likes === 0 ? (
               <span>Like</span>
