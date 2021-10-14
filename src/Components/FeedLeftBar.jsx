@@ -22,7 +22,7 @@ export default function FeedLeftBar({ MyProfileID }) {
       const response = await fetch(url);
       if (response.ok) {
         let data = await response.json();
-        setMyProfile({ data });
+        setMyProfile(data);
         console.log("*******MY PROFILE ID", MyProfileID);
       } else {
         console.log("Error");
