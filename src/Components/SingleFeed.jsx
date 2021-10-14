@@ -26,7 +26,7 @@ const SingleFeed = ({
   // console.log(MyProfile)
   const deletePost = async () => {
     try {
-      const response = await fetch(url + post._id, {
+      const response = await fetch(url + "/posts/" + post._id, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
