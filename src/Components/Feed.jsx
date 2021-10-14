@@ -11,12 +11,13 @@ function Feed() {
   const [newPost, setNewPost] = useState({});
   const [checkSort, markSort] = useState(false);
   const [MyProfile, setMyProfile] = useState();
-  const token = process.env.REACT_APP_TOKENACCESS;
-  const url = "https://striveschool-api.herokuapp.com/api/posts/";
-  const profileUrl = "https://striveschool-api.herokuapp.com/api/profile/me";
+  const depUrl = process.env.REACT_APP_FETCH_BE_URL
+  const url = `${depUrl}/posts`
+  const profileUrl = `${depUrl}/profiles/6166fec751575eba24d693f5`
 
   const onNewPost = (newPost) => {
     setPosts([...posts, newPost]);
+    fetchPosts();
   };
 
   const onDeletePost = (postId) => {
@@ -29,20 +30,19 @@ function Feed() {
     posts[toUpdate] = updatedPost;
 
     setPosts([...posts]);
+    fetchPosts()
   };
 
   const fetchPosts = async () => {
     try {
       let response = await fetch(url, {
         method: "GET",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       });
       if (response.ok) {
         let data = await response.json();
 
         setPosts(data);
+        console.log(`This is data`, data)
       } else {
         console.log("Error");
       }
@@ -55,9 +55,6 @@ function Feed() {
     try {
       const response = await fetch(profileUrl, {
         method: "GET",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       });
       if (response.ok) {
         let data = await response.json();
@@ -85,22 +82,23 @@ function Feed() {
           </Col>
           <Col md="6">
             <PostFeed onNewPostFunction={onNewPost} />
-            {posts
-              .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-              .slice(0, 25)
-              .map(
-                (post) =>
-                  post.user && (
-                    <SingleFeed
-                      MyProfileID={MyProfile}
-                      onDeletePostFunction={onDeletePost}
-                      onUpdatePostFunction={onUpdatePost}
-                      fetchPosts={fetchPosts}
-                      post={post}
-                      key={post._id}
-                    />
-                  )
-              )}
+            {posts &&
+              posts
+                .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+                .slice(0, 25)
+                .map(
+                  (post) =>
+                    post.user && (
+                      <SingleFeed
+                        MyProfileID={MyProfile}
+                        onDeletePostFunction={onDeletePost}
+                        onUpdatePostFunction={onUpdatePost}
+                        fetchPosts={fetchPosts}
+                        post={post}
+                        key={post._id}
+                      />
+                    )
+                )}
           </Col>
           <Col md="3">
             <FeedRightBar />

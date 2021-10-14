@@ -31,19 +31,14 @@ import { Link, withRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
 const LinkedinNavbar = () => {
 
-const token = process.env.REACT_APP_TOKENACCESS;
-const [meProfile, setMeProfile] = useState(null)
+  // const token = process.env.REACT_APP_TOKENACCESS;
+  const [meProfile, setMeProfile] = useState(null)
 
   /* Function to fetch profile */
   const fetchProfile = async () => {
     try {
       const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/me",
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
+        "https://striveschool-api.herokuapp.com/api/profile/me"
       )
       if (response.ok) {
         const myProfile = await response.json()
@@ -177,11 +172,11 @@ const [meProfile, setMeProfile] = useState(null)
                     </Col>
                   </Row>
                   <Link to="/home" style={{ textDecoration: 'none' }}>
-                  <Button id="button-myPage" variant="outline-primary"
-                    variant="outline-primary"
-                  >
-                    View Profile
-                  </Button>
+                    <Button id="button-myPage" variant="outline-primary"
+                      variant="outline-primary"
+                    >
+                      View Profile
+                    </Button>
                   </Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />

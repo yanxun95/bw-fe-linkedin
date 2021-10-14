@@ -11,6 +11,7 @@ import formatDistance from "date-fns/formatDistance";
 import ModalItem from "./Modal";
 import { useState } from "react";
 
+const depUrl = process.env.REACT_APP_FETCH_BE_URL;
 const SingleFeed = ({
   post,
   onDeletePostFunction,
@@ -18,8 +19,7 @@ const SingleFeed = ({
   fetchPosts,
   MyProfileID,
 }) => {
-  const url = "https://striveschool-api.herokuapp.com/api/posts/";
-  const token = process.env.REACT_APP_TOKENACCESS;
+  const url = `${depUrl}/posts/`
   const profileId = MyProfileID.data._id;
   const deletePost = async () => {
     try {
@@ -27,7 +27,6 @@ const SingleFeed = ({
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
         },
       });
       if (response.ok) {

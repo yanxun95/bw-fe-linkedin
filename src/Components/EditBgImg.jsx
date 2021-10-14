@@ -3,7 +3,7 @@ import { Modal, Button, Form, Spinner, Alert } from "react-bootstrap";
 import { useState } from "react";
 import { ImPencil } from "react-icons/im";
 import { BsCardImage } from "react-icons/bs";
-import {withRouter} from "react-router-dom"
+import { withRouter } from "react-router-dom"
 
 function EditBgImg({
   imgSrc,
@@ -31,12 +31,11 @@ function EditBgImg({
     e.preventDefault();
     console.log(0, "Sending!", 0);
     setLoading(true);
+    const depUrl = process.env.REACT_APP_FETCH_BE_URL
     const url =
       title === "post-img"
-        ? "https://striveschool-api.herokuapp.com/api/posts/" + postId._id
+        ? `${depUrl}/posts/${postId._id}/image`
         : "https://striveschool-api.herokuapp.com/api/profile/6135e0aa7be6c10015f9db9c/picture";
-    const token = process.env.REACT_APP_TOKENACCESS;
-
     let formData = new FormData();
     let file = ImageUpld.file;
     formData.append(title === "post-img" ? "post" : "profile", file);
@@ -46,9 +45,6 @@ function EditBgImg({
         method: "POST",
         body: formData,
         // mode: "no-cors",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       });
       let data = await response.json();
       if (response.ok) {

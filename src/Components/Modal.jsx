@@ -23,20 +23,19 @@ const ModalItem = ({
   );
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const token = process.env.REACT_APP_TOKENACCESS;
-  const url = "https://striveschool-api.herokuapp.com/api/posts/";
+  const url = process.env.REACT_APP_FETCH_BE_URL;
 
   const addPost = async () => {
     const post = {
       text,
+      user: ["5d93ac84b86e220017e76ae1"],
     };
     try {
-      let response = await fetch(url, {
+      let response = await fetch(url + "/posts/", {
         method: "POST",
         body: JSON.stringify(post),
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer " + token,
         },
       });
       if (response.ok) {
@@ -62,12 +61,11 @@ const ModalItem = ({
     };
     console.log("look here: ", postToUpdate);
     try {
-      const response = await fetch(url + postToUpdate._id, {
+      const response = await fetch(url + `/posts/${postToUpdate._id}`, {
         method: "PUT",
         body: JSON.stringify(post),
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
         },
       });
       if (response.ok) {
