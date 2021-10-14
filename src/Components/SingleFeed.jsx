@@ -9,7 +9,7 @@ import {
 } from "react-icons/ri";
 import formatDistance from "date-fns/formatDistance";
 import ModalItem from "./Modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SingleFeed = ({
   post,
@@ -18,19 +18,14 @@ const SingleFeed = ({
   fetchPosts,
   MyProfileID,
 }) => {
-  // const url = "https://striveschool-api.herokuapp.com/api/posts/";
-  // const token = process.env.REACT_APP_TOKENACCESS;
   const url = process.env.REACT_APP_FETCH_BE_URL;
-  // const profileId = MyProfile.data._id;
   const profileId = MyProfileID;
-  // console.log(MyProfile)
   const deletePost = async () => {
     try {
       const response = await fetch(url + post._id, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          // Authorization: "Bearer " + token,
         },
       });
       if (response.ok) {
@@ -41,6 +36,31 @@ const SingleFeed = ({
       console.log(err);
     }
   };
+
+  const [newpost, setPost] = useState(null);
+
+  const likes = async () => {
+    console.log("likes");
+    const userId = { userId: MyProfileID };
+    console.log(userId);
+    try {
+      const response = await fetch(url + `/posts/${post._id}/like/`, {
+        method: "POST",
+        body: JSON.stringify(userId),
+        headers: { "Content-type": "application/json" },
+      });
+      if (response.ok) {
+        fetchPosts();
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(post._id);
+  };
+
+  useEffect(() => {}, [post]);
 
   const result = formatDistance(new Date(), new Date(post.createdAt));
   const profileImg = post.user.image
@@ -85,22 +105,22 @@ const SingleFeed = ({
         <Card.Text>{post.text}</Card.Text>
         {post.image && <Card.Img src={post.image} />}
         <Card.Body className="footer-icons d-flex">
-          <div>
+          <div style={{ cursor: "pointer" }} onClick={() => likes()}>
             <AiOutlineLike size={20} />
             {post.likes === 0 ? (
-              <span>Like</span>
+              <span> Like</span>
             ) : (
               <span> {post.likes} Like</span>
             )}
           </div>
-          <div>
+          <div style={{ cursor: "pointer" }}>
             <FaRegCommentDots size={20} />
             <span> Comment</span>
           </div>
-          <div>
+          <div style={{ cursor: "pointer" }}>
             <RiShareForwardFill size={20} /> <span>Share</span>
           </div>
-          <div>
+          <div style={{ cursor: "pointer" }}>
             <RiSendPlaneFill size={20} /> <span>Send</span>
           </div>
         </Card.Body>
