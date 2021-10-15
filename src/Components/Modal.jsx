@@ -11,11 +11,13 @@ import ImageForPost from "./ImageForPost";
 import EditBgImg from "./EditBgImg";
 
 const ModalItem = ({
-  onNewPost,
+  // *** COMMENT BY LIA: commented out onNewPost, I'm using onNewPostFunction instead. If it's not a problem for you, I would appreciate if you could leave onNewPostFunction 🦄
+  // onNewPost,
+  onNewPostFunction,
   postToUpdate,
   onUpdatePost,
   title,
-  fetchPosts,
+  fetchPosts
 }) => {
   const [show, setShow] = useState(false);
   const [text, setText] = useState(
@@ -23,29 +25,25 @@ const ModalItem = ({
   );
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const token = process.env.REACT_APP_TOKENACCESS;
-  const url = "https://striveschool-api.herokuapp.com/api/posts/";
+  const url = process.env.REACT_APP_FETCH_BE_URL;
 
   const addPost = async () => {
     const post = {
       text,
     };
     try {
-      let response = await fetch(url, {
+      let response = await fetch(url + "/posts/6166fec751575eba24d693f5", {
         method: "POST",
         body: JSON.stringify(post),
         headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + token,
+          "Content-type": "application/json"
+          // *** COMMENT BY LIA: got rid of token, Authorization etc 🦄
         },
       });
       if (response.ok) {
         const newPost = await response.json();
-
-        // if image upload image here
-        // the comment has been sent succesfully!!
-        console.log("Posts", newPost);
-        onNewPost(newPost);
+        console.log("Posts from Modal", newPost);
+        onNewPostFunction(newPost);
       } else {
         console.log("error");
         alert("something went wrong");
@@ -62,12 +60,11 @@ const ModalItem = ({
     };
     console.log("look here: ", postToUpdate);
     try {
-      const response = await fetch(url + postToUpdate._id, {
+      const response = await fetch(url + `/posts/${postToUpdate._id}`, {
         method: "PUT",
         body: JSON.stringify(post),
         headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
+          "Content-Type": "application/json"
         },
       });
       if (response.ok) {
@@ -81,7 +78,10 @@ const ModalItem = ({
       console.log(error);
     }
   };
-
+  // *** COMMENT BY LIA: I dopn't remember if i commented this one out, if you don't need it, we can delete it 🦄
+  // useEffect(()=> {
+  //   fetchPerson()
+  // }, [])
   return (
     <>
       <button
@@ -104,7 +104,7 @@ const ModalItem = ({
               />
             </div>
             <div className="w-100">
-              <div>Azizbek Tokhirjonov</div>
+              <div>Gustavo Lapernica</div>
               <Privacy />
             </div>
           </div>

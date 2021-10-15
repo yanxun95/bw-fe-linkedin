@@ -6,22 +6,15 @@ import { AiFillQuestionCircle } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 const Aside = () => {
-  const [users, getUsers] = useState([]);
-  const token = process.env.REACT_APP_TOKENACCESS;
-  const url = "https://striveschool-api.herokuapp.com/api/profile/";
+  const [users, setUsers] = useState([]);
+  const url = process.env.REACT_APP_FETCH_BE_URL + "/profiles";
 
   const fetchUsers = async () => {
     try {
-      let response = await fetch(url, {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      let response = await fetch(url);
       if (response.ok) {
         let data = await response.json();
-        getUsers({ data });
-        console.log(users);
+        setUsers({data});
       } else {
         console.log("Error");
       }
@@ -90,7 +83,7 @@ const Aside = () => {
         <Row className="mt-4">
           <Card id="may-know">
             <Card.Title>People you may know</Card.Title>
-            <ViewedPeople message="Connect" data={users} />
+            <ViewedPeople message="Connect" data={users}/>
           </Card>
         </Row>
         <Row className="mt-4 mb-5">
