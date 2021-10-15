@@ -11,7 +11,9 @@ import ImageForPost from "./ImageForPost";
 import EditBgImg from "./EditBgImg";
 
 const ModalItem = ({
-  onNewPost,
+  // *** COMMENT BY LIA: commented out onNewPost, I'm using onNewPostFunction instead. If it's not a problem for you, I would appreciate if you could leave onNewPostFunction 🦄
+  // onNewPost,
+  onNewPostFunction,
   postToUpdate,
   onUpdatePost,
   title,
@@ -23,7 +25,6 @@ const ModalItem = ({
   );
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // const token = process.env.REACT_APP_TOKENACCESS;
   const url = process.env.REACT_APP_FETCH_BE_URL;
 
   const addPost = async () => {
@@ -35,17 +36,14 @@ const ModalItem = ({
         method: "POST",
         body: JSON.stringify(post),
         headers: {
-          "Content-type": "application/json",
-          // Authorization: "Bearer " + token,
+          "Content-type": "application/json"
+          // *** COMMENT BY LIA: got rid of token, Authorization etc 🦄
         },
       });
       if (response.ok) {
         const newPost = await response.json();
-
-        // if image upload image here
-        // the comment has been sent succesfully!!
-        console.log("Posts", newPost);
-        onNewPost(newPost);
+        console.log("Posts from Modal", newPost);
+        onNewPostFunction(newPost);
       } else {
         console.log("error");
         alert("something went wrong");
@@ -66,8 +64,7 @@ const ModalItem = ({
         method: "PUT",
         body: JSON.stringify(post),
         headers: {
-          "Content-Type": "application/json",
-          // Authorization: "Bearer " + token,
+          "Content-Type": "application/json"
         },
       });
       if (response.ok) {
@@ -81,7 +78,10 @@ const ModalItem = ({
       console.log(error);
     }
   };
-
+  // *** COMMENT BY LIA: I dopn't remember if i commented this one out, if you don't need it, we can delete it 🦄
+  // useEffect(()=> {
+  //   fetchPerson()
+  // }, [])
   return (
     <>
       <button

@@ -11,14 +11,13 @@ function Feed() {
   const [newPost, setNewPost] = useState({});
   const [checkSort, markSort] = useState(false);
   const [MyProfile, setMyProfile] = useState(null);
-  // const token = process.env.REACT_APP_TOKENACCESS;
-  // const url = "https://striveschool-api.herokuapp.com/api/posts/";
-  // const profileUrl = "https://striveschool-api.herokuapp.com/api/profile/me";
+
   const url = process.env.REACT_APP_FETCH_BE_URL;
   const profileUrl = url + "/profiles/6166fec751575eba24d693f5";
 
   const onNewPost = (newPost) => {
     setPosts([...posts, newPost]);
+    fetchPosts()
   };
 
   const onDeletePost = (postId) => {
@@ -31,6 +30,7 @@ function Feed() {
     posts[toUpdate] = updatedPost;
 
     setPosts([...posts]);
+    fetchPosts()
   };
 
   // FETCH POSTS
@@ -40,7 +40,7 @@ function Feed() {
       if (response.ok) {
         let data = await response.json();
         setPosts(data);
-        console.log(data);
+        console.log("DATA (Posts) FROM FEED", data);
       } else {
         console.log("Error");
       }
@@ -90,6 +90,7 @@ function Feed() {
                     post.user && (
                       <SingleFeed
                         MyProfileID={MyProfile.data._id}
+                        MyProfile={MyProfile}
                         onDeletePostFunction={onDeletePost}
                         onUpdatePostFunction={onUpdatePost}
                         fetchPosts={fetchPosts}

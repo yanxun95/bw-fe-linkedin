@@ -14,7 +14,7 @@ import More from "./mainContBtns/More";
 // import {fetchPerson} from "../utilities/fetches.js"
 
 const MainContainer = ({ match }) => {
-  // const token = process.env.REACT_APP_TOKENACCESS;
+  // *** COMMENT BY LIA: got rid of const token 🦄
 
   const personId = "";
   const [PersonInfo, setPersonInfo] = useState([]);
@@ -57,6 +57,7 @@ const MainContainer = ({ match }) => {
   const fetchPersonExpir = async () => {
     try {
       let response = await fetch(
+        // *** COMMENT BY LIA: commented this out and hardcoded the experience endpoint 🦄
         // match.params.id
         //   ? "https://bw3-be.herokuapp.com/experience"
         //   : "https://striveschool-api.herokuapp.com/api/profile/6135e0aa7be6c10015f9db9c/experiences",

@@ -16,13 +16,14 @@ const SingleFeed = ({
   onDeletePostFunction,
   onUpdatePostFunction,
   fetchPosts,
+  fetchPerson,
   MyProfileID,
 }) => {
   const url = process.env.REACT_APP_FETCH_BE_URL;
   const profileId = MyProfileID;
   const deletePost = async () => {
     try {
-      const response = await fetch(url + post._id, {
+      const response = await fetch(url + "/posts/" + post._id, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
