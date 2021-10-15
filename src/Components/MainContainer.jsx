@@ -45,7 +45,7 @@ const MainContainer = ({ match }) => {
       if (response.ok) {
         let data = await response.json();
         console.log(data);
-        setPersonInfo({ data });
+        setPersonInfo({data});
       } else {
         console.log("Error");
       }
@@ -55,10 +55,10 @@ const MainContainer = ({ match }) => {
   const [PersonExpr, setPersonExpr] = useState({});
   const fetchPersonExpir = async () => {
     try {
-      let response = await fetch("https://bw3-be.herokuapp.com/experiences");
+      let response = await fetch("https://bw3-be.herokuapp.com/experiences/");
       if (response.ok) {
         let data = await response.json();
-        // setPersonExpr({ data });
+        setPersonExpr({ data });
         console.log(data);
       } else {
         console.log("Error");
@@ -255,8 +255,8 @@ const MainContainer = ({ match }) => {
                   )
                 )}
               </div>
-              {PersonExpr.data ? (
-                PersonExpr.data.slice(0, 3).map((person) => (
+              {/* {PersonInfo.data ? (
+                PersonInfo.experiences.slice(0, 3).map((person) => (
                   <a href="" className="d-flex align-items-center my-1">
                     <img src={person.image} alt="" style={{ height: "2rem" }} />
                     <small className="font-weight-bold ml-2">
@@ -271,7 +271,7 @@ const MainContainer = ({ match }) => {
                   width={140}
                   height={25}
                 />
-              )}
+              )} */}
             </Col>
           </Col>
         </Row>

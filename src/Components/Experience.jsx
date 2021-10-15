@@ -48,6 +48,7 @@ const Experience = ({ match }) => {
             <div className="d-flex ml-auto">
               <AddExperience
                 userId={match.params.id || "6166fec751575eba24d693f5"}
+                fetchExp={fetchExp}
               />
             </div>
           </div>
@@ -73,6 +74,7 @@ const Experience = ({ match }) => {
                           userId={exp.user}
                           expId={exp._id}
                           arrayLenth={userExperience.length}
+                          fetchExp={fetchExp}
                         />
                       </div>
                     </div>

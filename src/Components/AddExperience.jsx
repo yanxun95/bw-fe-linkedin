@@ -7,7 +7,7 @@ import "../css/editModal.css";
 
 import { DropdownDate, DropdownComponent } from "react-dropdown-date";
 
-export default function AddExperience({ userId }) {
+export default function AddExperience({ userId , fetchExp}) {
   // CONSTANT
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -77,6 +77,7 @@ export default function AddExperience({ userId }) {
       );
       if (response.ok) {
         let data = await response.json();
+        fetchExp()
       } else {
         console.log("Error");
       }
