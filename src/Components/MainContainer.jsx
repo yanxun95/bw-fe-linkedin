@@ -10,11 +10,9 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import OpenTo from "./mainContBtns/OpenTo";
 import AddSection from "./mainContBtns/AddSection";
 import More from "./mainContBtns/More";
-// *************** \\
-// import {fetchPerson} from "../utilities/fetches.js"
+
 
 const MainContainer = ({ match }) => {
-  // *** COMMENT BY LIA: got rid of const token 🦄
 
   const personId = "";
   const [PersonInfo, setPersonInfo] = useState([]);
@@ -40,13 +38,10 @@ const MainContainer = ({ match }) => {
     try {
       let response = await fetch(
         match.params.id
-          ? `${process.env.REACT_APP_BE_URL}/profiles/` + match.params.id
-          : `${process.env.REACT_APP_BE_URL}/profiles/61644708e498d1da1ca643e3`,
+          ? `${process.env.REACT_APP_FETCH_BE_URL}/profiles/` + match.params.id
+          : `${process.env.REACT_APP_FETCH_BE_URL}/profiles/61644708e498d1da1ca643e3`,
         {
           method: "GET",
-          // headers: {
-          //   Authorization: "Bearer " + token,
-          // },
         }
       );
       if (response.ok) {
@@ -63,11 +58,6 @@ const MainContainer = ({ match }) => {
   const fetchPersonExpir = async () => {
     try {
       let response = await fetch(
-        // *** COMMENT BY LIA: commented this out and hardcoded the experience endpoint 🦄
-        // match.params.id
-        //   ? "https://bw3-be.herokuapp.com/experience"
-        //   : "https://striveschool-api.herokuapp.com/api/profile/6135e0aa7be6c10015f9db9c/experiences",
-
         "https://bw3-be.herokuapp.com/experience"
       );
       if (response.ok) {

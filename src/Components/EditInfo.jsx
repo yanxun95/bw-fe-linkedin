@@ -102,7 +102,7 @@ export default function EditInfo({
   };
   //   POSTING DATA
   //   URL
-  const url = `${process.env.REACT_APP_BE_URL}/profiles/${personId}`;
+  const url = `${process.env.REACT_APP_FETCH_BE_URL}/profiles/${personId}`;
 
   const postData = async () => {
     setLoading(true);
@@ -111,8 +111,7 @@ export default function EditInfo({
         method: "PUT",
         body: JSON.stringify(EditingInfo),
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          //Authorization: "Bearer " + token,
+          "Content-type": "application/json; charset=UTF-8"
         },
       });
       let data = await response.json();
