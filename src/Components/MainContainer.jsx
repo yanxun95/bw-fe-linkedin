@@ -37,18 +37,18 @@ const MainContainer = ({ match }) => {
     try {
       let response = await fetch(
         match.params.id
-          ? "https://striveschool-api.herokuapp.com/api/profile/" +
-              match.params.id
-          : "https://striveschool-api.herokuapp.com/api/profile/me",
+          ? `${process.env.REACT_APP_BE_URL}/profiles/` + match.params.id
+          : `${process.env.REACT_APP_BE_URL}/profiles/61644708e498d1da1ca643e3`,
         {
           method: "GET",
-          headers: {
-            Authorization: "Bearer " + token,
-          },
+          // headers: {
+          //   Authorization: "Bearer " + token,
+          // },
         }
       );
       if (response.ok) {
         let data = await response.json();
+        console.log(data)
         setPersonInfo({ data });
       } else {
         console.log("Error");
@@ -102,11 +102,13 @@ const MainContainer = ({ match }) => {
             </div>
             {!match.params.id && PersonInfo.data && (
               <EditBgImg
+                bgid = {PersonInfo.data._id}
                 imgSrc={PersonInfo.data.image}
                 renewData={() => fetchPerson()}
                 valueAvatar={true}
               />
             )}
+            {/* ///////////////////*/}
             {/* AVATAR */}
             {!PersonInfo.data ? (
               <Skeleton
@@ -118,6 +120,7 @@ const MainContainer = ({ match }) => {
               />
             ) : (
               <EditBgImg
+                bgid = {PersonInfo.data._id}
                 imgSrc={PersonInfo.data.image}
                 renewData={() => fetchPerson()}
                 valueAvatar={false}
@@ -227,7 +230,11 @@ const MainContainer = ({ match }) => {
                   >
                     More
                   </Button>
-                  {BtnsUpdate.more && <More personAcc={match.params.id} />}
+
+                  {BtnsUpdate.more && <More personAcc={match.params.id} profileId={PersonInfo.data._id} />}
+
+                  {/* {match.params.id && <More personAcc={match.params.id} />} */}
+
                 </div>
               </div>
             </Col>
@@ -276,7 +283,9 @@ const MainContainer = ({ match }) => {
                   height={25}
                 />
               )}
+            
             </Col>
+            
           </Col>
         </Row>
       </div>

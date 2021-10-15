@@ -102,7 +102,7 @@ export default function EditInfo({
   };
   //   POSTING DATA
   //   URL
-  const url = "https://striveschool-api.herokuapp.com/api/profile/";
+  const url = `${process.env.REACT_APP_BE_URL}/profiles/${personId}`;
 
   const postData = async () => {
     setLoading(true);
@@ -112,11 +112,12 @@ export default function EditInfo({
         body: JSON.stringify(EditingInfo),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
-          Authorization: "Bearer " + token,
+          //Authorization: "Bearer " + token,
         },
       });
       let data = await response.json();
       if (response.ok) {
+        console.log(data)
         setLoading(false);
         setSuccess(true);
 

@@ -6,6 +6,7 @@ import { BsCardImage } from "react-icons/bs";
 import {withRouter} from "react-router-dom"
 
 function EditBgImg({
+  bgid,
   imgSrc,
   renewData,
   valueAvatar,
@@ -17,11 +18,16 @@ function EditBgImg({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const postImg = postId ? postId.image : "";
+
   // Loaders
+
   const [Loading, setLoading] = useState(false);
   const [Success, setSuccess] = useState(false);
+
   // NEW POST FETCHING ==================================== <<<<
+
   const [ImageUpld, setImageUpld] = useState({ file: null });
+
   const uploadF = (e) => {
     console.log(e.target.files[0]);
     setImageUpld({ file: e.target.files[0] });
@@ -31,24 +37,25 @@ function EditBgImg({
     e.preventDefault();
     console.log(0, "Sending!", 0);
     setLoading(true);
-    const url =
-      title === "post-img"
-        ? "https://striveschool-api.herokuapp.com/api/posts/" + postId._id
-        : "https://striveschool-api.herokuapp.com/api/profile/6135e0aa7be6c10015f9db9c/picture";
+    const url = `${process.env.REACT_APP_BE_URL}/profiles/61644708e498d1da1ca643e3/picture`
+
+    //   title === "post-img"
+    //     ? `${process.env.REACT_APP_BE_URL}/profiles/${bgid}/picture`
+    //     : `${process.env.REACT_APP_BE_URL}/profiles/61644708e498d1da1ca643e3/picture`;
     const token = process.env.REACT_APP_TOKENACCESS;
 
     let formData = new FormData();
     let file = ImageUpld.file;
-    formData.append(title === "post-img" ? "post" : "profile", file);
+    formData.append(title === "post-img" ? "post" : "profilepic", file);
     // ==
     try {
       let response = await fetch(url, {
         method: "POST",
         body: formData,
         // mode: "no-cors",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
+        // headers: {
+        //   Authorization: "Bearer " + token,
+        // },
       });
       let data = await response.json();
       if (response.ok) {
