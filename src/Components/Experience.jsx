@@ -18,9 +18,9 @@ const Experience = ({ match }) => {
     try {
       let response = await fetch(
         match.params.id
-          ? process.env.REACT_APP_FETCH_BE_URL + match.params.id + "/experience"
+          ? `${process.env.REACT_APP_BE_URL}/profiles/` + match.params.id
           : `${process.env.REACT_APP_BE_URL}/profiles` +
-              "/61644708e498d1da1ca643e3",
+              "/6166fec751575eba24d693f5",
         {
           method: "GET",
         }
@@ -46,7 +46,7 @@ const Experience = ({ match }) => {
             <h5 style={{ fontWeight: "480" }}>Experience</h5>
 
             <div className="d-flex ml-auto">
-              <AddExperience userId={"61644708e498d1da1ca643e3"} />
+              <AddExperience userId={match.params.id || "61644708e498d1da1ca643e3"} />
             </div>
           </div>
           {userExperience.map((exp) => (

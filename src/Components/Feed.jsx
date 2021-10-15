@@ -6,7 +6,7 @@ import PostFeed from "./Post";
 import FeedLeftBar from "./FeedLeftBar";
 import FeedRightBar from "./FeedRightBar";
 
-function Feed() {
+function Feed({match}) {
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState({});
   const [checkSort, markSort] = useState(false);
@@ -32,6 +32,8 @@ function Feed() {
 
     setPosts([...posts]);
   };
+// const userId = match.params.id
+// console.log("THIS IS MATCH:PARAMS:ID", userId)
 
   // FETCH POSTS
   const fetchPosts = async () => {
@@ -64,6 +66,7 @@ function Feed() {
     }
   };
 
+
   useEffect(() => {
     fetchPosts();
     fetchPerson();
@@ -94,7 +97,8 @@ function Feed() {
                         onUpdatePostFunction={onUpdatePost}
                         fetchPosts={fetchPosts}
                         post={post}
-                        key={post._id}
+                        key={post._id}     
+                        // userId={userId}                  
                       />
                     )
                 )}
