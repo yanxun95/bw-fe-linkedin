@@ -37,7 +37,6 @@ const ModalItem = ({
         body: JSON.stringify(post),
         headers: {
           "Content-type": "application/json"
-          // *** COMMENT BY LIA: got rid of token, Authorization etc 🦄
         },
       });
       if (response.ok) {
@@ -78,10 +77,7 @@ const ModalItem = ({
       console.log(error);
     }
   };
-  // *** COMMENT BY LIA: I dopn't remember if i commented this one out, if you don't need it, we can delete it 🦄
-  // useEffect(()=> {
-  //   fetchPerson()
-  // }, [])
+  
   return (
     <>
       <button
@@ -128,6 +124,7 @@ const ModalItem = ({
               postId={postToUpdate}
               onUpdatePostFunction={onUpdatePost}
               fetchPosts={fetchPosts}
+              checkProp="ok"
             />
             <AiFillPlaySquare size={25} />
             <HiDocumentText size={25} />
