@@ -42,7 +42,7 @@ function Feed() {
         let data = await response.json();
 
         setPosts(data);
-        console.log(`This is data`, data)
+        // console.log(`This is data`, data)
       } else {
         console.log("Error");
       }

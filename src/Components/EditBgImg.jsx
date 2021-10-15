@@ -34,8 +34,8 @@ function EditBgImg({
     const depUrl = process.env.REACT_APP_FETCH_BE_URL
     const url =
       title === "post-img"
-        ? `${depUrl}/posts/${postId._id}/image`
-        : "https://striveschool-api.herokuapp.com/api/profile/6135e0aa7be6c10015f9db9c/picture";
+        ? `${depUrl}/posts/${postId._id}/picture`
+        : `${depUrl}/profile/61689399b62c99556edf4574/picture`;
     let formData = new FormData();
     let file = ImageUpld.file;
     formData.append(title === "post-img" ? "post" : "profile", file);

@@ -19,7 +19,7 @@ const SingleFeed = ({
   fetchPosts,
   MyProfileID,
 }) => {
-  const url = `${depUrl}/posts/`
+  const url = `${depUrl}/posts`
   const profileId = MyProfileID.data._id;
   const deletePost = async () => {
     try {
