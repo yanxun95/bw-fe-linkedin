@@ -11,9 +11,7 @@ import OpenTo from "./mainContBtns/OpenTo";
 import AddSection from "./mainContBtns/AddSection";
 import More from "./mainContBtns/More";
 
-
 const MainContainer = ({ match }) => {
-
   const personId = "";
   const [PersonInfo, setPersonInfo] = useState([]);
   //   !
@@ -39,7 +37,7 @@ const MainContainer = ({ match }) => {
       let response = await fetch(
         match.params.id
           ? `${process.env.REACT_APP_FETCH_BE_URL}/profiles/` + match.params.id
-          : `${process.env.REACT_APP_FETCH_BE_URL}/profiles/61644708e498d1da1ca643e3`,
+          : `${process.env.REACT_APP_FETCH_BE_URL}/profiles/6166fec751575eba24d693f5`,
         {
           method: "GET",
         }
@@ -57,9 +55,7 @@ const MainContainer = ({ match }) => {
   const [PersonExpr, setPersonExpr] = useState({});
   const fetchPersonExpir = async () => {
     try {
-      let response = await fetch(
-        "https://bw3-be.herokuapp.com/experience"
-      );
+      let response = await fetch("https://bw3-be.herokuapp.com/experiences");
       if (response.ok) {
         let data = await response.json();
         // setPersonExpr({ data });
