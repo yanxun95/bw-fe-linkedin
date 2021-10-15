@@ -7,7 +7,7 @@ import "../css/editModal.css";
 
 import { DropdownDate, DropdownComponent } from "react-dropdown-date";
 
-export default function EditExperience({ userId, expId }) {
+export default function EditExperience({ userId, expId, fetchExp }) {
   // CONSTANT
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -37,7 +37,7 @@ export default function EditExperience({ userId, expId }) {
 
   //   REFRESH
   useEffect(() => {
-    fetchExp();
+    fetchExperience();
   }, []);
 
   // EXPERIENCE Model:
@@ -81,11 +81,12 @@ export default function EditExperience({ userId, expId }) {
     e.preventDefault();
     deleteFunction();
     handleClose();
+    
   };
 
   //Recieving Data
 
-  const fetchExp = async () => {
+  const fetchExperience = async () => {
     try {
       let response = await fetch(
         `${process.env.REACT_APP_FETCH_BE_URL}/experiences/` + expId,
@@ -116,7 +117,7 @@ export default function EditExperience({ userId, expId }) {
       );
       if (response.ok) {
         let data = await response.json();
-        // renewData();
+        fetchExp()
       } else {
         console.log("Error");
       }
@@ -138,7 +139,7 @@ export default function EditExperience({ userId, expId }) {
       );
       if (response.ok) {
         let data = await response.json();
-        // renewData();
+        fetchExp()
       } else {
         console.log("Error");
       }
@@ -167,6 +168,7 @@ export default function EditExperience({ userId, expId }) {
         console.log(response);
         console.log(data);
         alert("Image upload successful");
+        fetchExp()
         // setLoading(false);
         // setSuccess(true);
         // setTimeout(() => {
