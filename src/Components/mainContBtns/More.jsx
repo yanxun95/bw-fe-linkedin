@@ -24,7 +24,7 @@ export default function More({ personAcc, profileId}) {
     );
   });
   const link = document.createElement('a');
-    link.href = `${process.env.REACT_APP_BE_URL}/profiles/${profileId}/Pdf`;
+    link.href = `https://bw3-be.herokuapp.com/profiles/${profileId}/Pdf`;
     link.setAttribute(
       'download',
       `FileName.pdf`,
