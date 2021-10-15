@@ -10,12 +10,8 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import OpenTo from "./mainContBtns/OpenTo";
 import AddSection from "./mainContBtns/AddSection";
 import More from "./mainContBtns/More";
-// *************** \\
-// import {fetchPerson} from "../utilities/fetches.js"
 
 const MainContainer = ({ match }) => {
-  // *** COMMENT BY LIA: got rid of const token 🦄
-
   const personId = "";
   const [PersonInfo, setPersonInfo] = useState([]);
   //   !
@@ -40,8 +36,11 @@ const MainContainer = ({ match }) => {
     try {
       let response = await fetch(
         match.params.id
-          ? "https://bw3-be.herokuapp.com/profiles/" + match.params.id
-          : "https://striveschool-api.herokuapp.com/api/profiles/me"
+          ? `${process.env.REACT_APP_FETCH_BE_URL}/profiles/` + match.params.id
+          : `${process.env.REACT_APP_FETCH_BE_URL}/profiles/6166fec751575eba24d693f5`,
+        {
+          method: "GET",
+        }
       );
       if (response.ok) {
         let data = await response.json();
@@ -56,14 +55,7 @@ const MainContainer = ({ match }) => {
   const [PersonExpr, setPersonExpr] = useState({});
   const fetchPersonExpir = async () => {
     try {
-      let response = await fetch(
-        // *** COMMENT BY LIA: commented this out and hardcoded the experience endpoint 🦄
-        // match.params.id
-        //   ? "https://bw3-be.herokuapp.com/experience"
-        //   : "https://striveschool-api.herokuapp.com/api/profile/6135e0aa7be6c10015f9db9c/experiences",
-
-        "https://bw3-be.herokuapp.com/experience"
-      );
+      let response = await fetch("https://bw3-be.herokuapp.com/experiences");
       if (response.ok) {
         let data = await response.json();
         // setPersonExpr({ data });
@@ -95,11 +87,13 @@ const MainContainer = ({ match }) => {
             </div>
             {!match.params.id && PersonInfo.data && (
               <EditBgImg
+                bgid={PersonInfo.data._id}
                 imgSrc={PersonInfo.data.image}
                 renewData={() => fetchPerson()}
                 valueAvatar={true}
               />
             )}
+            {/* ///////////////////*/}
             {/* AVATAR */}
             {!PersonInfo.data ? (
               <Skeleton
@@ -111,6 +105,7 @@ const MainContainer = ({ match }) => {
               />
             ) : (
               <EditBgImg
+                bgid={PersonInfo.data._id}
                 imgSrc={PersonInfo.data.image}
                 renewData={() => fetchPerson()}
                 valueAvatar={false}
@@ -220,7 +215,15 @@ const MainContainer = ({ match }) => {
                   >
                     More
                   </Button>
-                  {BtnsUpdate.more && <More personAcc={match.params.id} />}
+
+                  {BtnsUpdate.more && (
+                    <More
+                      personAcc={match.params.id}
+                      profileId={PersonInfo.data._id}
+                    />
+                  )}
+
+                  {/* {match.params.id && <More personAcc={match.params.id} />} */}
                 </div>
               </div>
             </Col>

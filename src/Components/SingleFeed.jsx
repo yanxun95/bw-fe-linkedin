@@ -2,6 +2,7 @@ import { Card, Dropdown } from "react-bootstrap";
 import { BsThreeDots, BsFillTrashFill } from "react-icons/bs";
 import { AiOutlineLike } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
+import { Row, Col } from "react-bootstrap";
 import {
   RiShareForwardFill,
   RiGlobalFill,
@@ -10,6 +11,9 @@ import {
 import formatDistance from "date-fns/formatDistance";
 import ModalItem from "./Modal";
 import { useState, useEffect } from "react";
+import AddComment from "./AddComment";
+import EditComment from "./EditComment";
+import "../experience.css";
 
 const SingleFeed = ({
   post,
@@ -18,7 +22,20 @@ const SingleFeed = ({
   fetchPosts,
   fetchPerson,
   MyProfileID,
+  // userId
 }) => {
+  // const url = "https://striveschool-api.herokuapp.com/api/posts/";
+  // const token = process.env.REACT_APP_TOKENACCESS;
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  const [comments, setComments] = useState([]);
+  console.log("Comments STATE SINGLE FEED", comments);
+  // console.log("THIS IS MATCH PARAMS USER ID IN SINGLE FEED", userId)
+  const postId = post._id;
+
   const url = process.env.REACT_APP_FETCH_BE_URL;
   const profileId = MyProfileID;
   const deletePost = async () => {
@@ -62,6 +79,29 @@ const SingleFeed = ({
   };
 
   useEffect(() => {}, [post]);
+
+  //---Fetch Comments---
+  const fetchComments = async () => {
+    try {
+      const resp = await fetch(
+        `${process.env.REACT_APP_FETCH_BE_URL}/posts/` + post._id + "/comment",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (resp.ok) {
+        console.log("COMMENT COMMING");
+        let data = await resp.json();
+        setComments(data);
+        console.log("COMMENT DATA USER", data);
+      }
+    } catch (error) {
+      console.log("COMMENT ERROR", error);
+    }
+  };
 
   const result = formatDistance(new Date(), new Date(post.createdAt));
   const profileImg = post.user.image
@@ -115,16 +155,65 @@ const SingleFeed = ({
             )}
           </div>
           <div style={{ cursor: "pointer" }}>
-            <FaRegCommentDots size={20} />
+            <AddComment
+              postId={post._id}
+              userId={MyProfileID}
+              fetchComments={fetchComments}
+            />
+
             <span> Comment</span>
           </div>
-          <div style={{ cursor: "pointer" }}>
+          <div>
             <RiShareForwardFill size={20} /> <span>Share</span>
           </div>
           <div style={{ cursor: "pointer" }}>
             <RiSendPlaneFill size={20} /> <span>Send</span>
           </div>
         </Card.Body>
+        {/* <div>
+             { comments.map((c) => c.userId._id)}
+            </div> */}
+
+        {comments.map((com) => (
+          <Card.Body>
+            <div>
+              <Row>
+                <Col xs="1">
+                  <img
+                    className="commentImage"
+                    src={com.userId.image}
+                    style={{ borderRadius: 50 }}
+                    alt=""
+                  />
+                </Col>
+                <Col xs="11">
+                  <div className="ml-2 commentBox d-flex">
+                    <div className="">
+                      <div className="ml-2 py-0 commentName">
+                        {" "}
+                        {com.userId.name}
+                        {com.userId.surname}{" "}
+                      </div>
+                      <div className="ml-2 py-0 commentTitle">
+                        {" "}
+                        {com.userId.title}{" "}
+                      </div>
+                      <div className="ml-2 py-0 commentText">{com.comment}</div>
+                    </div>
+                    <div className="d-flex ml-auto">
+                      <EditComment
+                        userId={MyProfileID}
+                        commentId={com._id}
+                        postId={postId}
+                        fetchComments={fetchComments}
+                      />
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          </Card.Body>
+        ))}
       </Card.Body>
     </Card>
   );
